@@ -30,7 +30,7 @@ open class BaseActivity() : AppCompatActivity() {
         val file = File(filesDir, RECORDS_FILE)
         if(file.exists()) {
             //Read each line
-            File(filesDir, RECORDS_FILE). forEachLine{
+            File(filesDir, RECORDS_FILE).forEachLine {
                 val parts = it.split(",")
                 //convert to an RecordsItem
                 val record = RecordsItem(parts[0].toInt(), parts[1], parts[2], parts[3].toDouble(), parts[4].toInt(), parts[5], parts[6] )
@@ -48,8 +48,10 @@ open class BaseActivity() : AppCompatActivity() {
     }
 
     fun appendRecordToFile(record: RecordsItem) {
-        val fileOutputStream: FileOutputStream = openFileOutput(RECORDS_FILE, MODE_APPEND)
+        val fileOutputStream : FileOutputStream = openFileOutput(RECORDS_FILE, MODE_APPEND)
         val recordFile = OutputStreamWriter(fileOutputStream)
+
+        //appending to file
         recordFile.write( "${record.toCSV()}\n")
         recordFile.close()
     }

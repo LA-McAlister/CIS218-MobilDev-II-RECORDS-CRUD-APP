@@ -7,6 +7,7 @@ import android.view.View
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.random.Random
 
 class MainActivity : BaseActivity() {
     lateinit var recyclerView : RecyclerView
@@ -44,10 +45,13 @@ class MainActivity : BaseActivity() {
 
     fun addMockDataOnClick( v : View) {
         for (i in 1..41) {
-            val recordsItem = RecordsItem(i,"Meeting $i", "Very long meeting", 13.99, 1, "4/19/2023", "3/22/2023")
+            val rating = (1..5).random()
+            val price = Random.nextDouble(999.99)
+            val recordsItem = RecordsItem(i,"Meeting $i", "Very long meeting", price, rating, "19 April 2023", "19 March 2023")
             recordsList.add(recordsItem)
         }
         writeRecordsToFile()
         recordsListAdapter.notifyDataSetChanged()
     }
+
 }

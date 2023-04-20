@@ -29,20 +29,38 @@ class AddRecord : BaseActivity() {
         edtEditDateCreated = findViewById(R.id.edtEditDateCreated)
     }
 
-    fun addNewEventOnClick( v : View){
-        val recordItem = RecordsItem(
-            edtEditRating.text.toString().toInt(),
+    fun addNewRecordOnClick( v : View) {
+        val record = recordsList[currentRecord]
+        val newRecordID = recordsList.size + 1
+
+        if (edtEditName.text == null || edtEditDescription.text == null || edtEditPrice.text == null || edtEditRating.text == null || (edtEditRating.text.toString()
+                .toInt() <= 0 || edtEditRating.text.toString().toInt() > 5)) {
+            edtEditName.error = "Valid Name Not Entered"
+            edtEditDescription.error = "Valid Description Not Entered"
+            edtEditPrice.error = "Valid Price Not Entered"
+            edtEditRating.error = "Please Rate Between 1 & 5"
+        }
+        else {
+            val addRecordItem = RecordsItem(
+                newRecordID,
             edtEditName.text.toString(),
             edtEditDescription.text.toString(),
             edtEditPrice.text.toString().toDouble(),
             edtEditRating.text.toString().toInt(),
-            edtEditDateModified.text.toString(),
-            edtEditDateCreated.text.toString()
-        )
-            recordsList.add(recordItem)
+            edtEditDateModified.toString(),
+            edtEditDateCreated.toString())
 
-        appendRecordToFile( recordItem )
+            recordsList.add(addRecordItem)
+            appendRecordToFile(addRecordItem)
 
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+
+            toastIt("Successfully Added")
+        }
+    }
+
+    fun showAllRecordsOnClick(v : View) {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
