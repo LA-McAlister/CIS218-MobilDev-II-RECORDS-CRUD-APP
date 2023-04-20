@@ -33,7 +33,7 @@ open class BaseActivity() : AppCompatActivity() {
             File(filesDir, RECORDS_FILE). forEachLine{
                 val parts = it.split(",")
                 //convert to an RecordsItem
-                val record = RecordsItem(parts[0], parts[1], parts[2], parts[3].toInt(), parts[4].toInt(), parts[5], parts[6] )
+                val record = RecordsItem(parts[0].toInt(), parts[1], parts[2], parts[3].toDouble(), parts[4].toInt(), parts[5], parts[6] )
                 //Add the event to the recordList
                 recordsList.add(record)
             }

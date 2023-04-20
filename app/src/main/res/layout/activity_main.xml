@@ -10,6 +10,7 @@
         android:id="@+id/btnNewRecord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="addRecordOnClick"
         android:text="New Record"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +34,7 @@
         app:layout_constraintVertical_bias="0.058" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recordsRecycler"
         android:layout_width="372dp"
         android:layout_height="481dp"
         app:layout_constraintBottom_toBottomOf="parent"
