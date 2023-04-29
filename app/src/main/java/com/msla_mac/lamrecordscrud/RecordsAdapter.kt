@@ -7,13 +7,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 
-internal class RecordsAdapter(private var recordsList : List<RecordsItem>,
-                             private val listener: (position: Int) -> Unit ):
-    RecyclerView.Adapter<RecordsAdapter.MyViewHolder>() {
+internal class RecordsAdapter(
+    private var recordsList : List<RecordsItem>,
+    private val listener: (position: Int) -> Unit
+    ): RecyclerView.Adapter<RecordsAdapter.MyViewHolder>() {
 
     // TODO: finish adapter
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view),
-        View.OnClickListener{
+        View.OnClickListener {
         var recordID : TextView = view.findViewById(R.id.recordRecordIDText)
         var item: TextView = view.findViewById(R.id.recordNameText)
         var description: TextView = view.findViewById(R.id.recordDescriptionText)
@@ -23,16 +24,16 @@ internal class RecordsAdapter(private var recordsList : List<RecordsItem>,
         var dateCreated: TextView = view.findViewById(R.id.recordDateCreated)
 
 
-
         init {
-            itemView.setOnClickListener( this )
+            itemView.setOnClickListener(this)
         }
+
         override fun onClick(v: View){
-            listener (adapterPosition)
+            listener(adapterPosition)
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+    override fun onCreateViewHolder(parent : ViewGroup, viewType : Int) : MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.record_item, parent, false)
         return MyViewHolder(itemView)
     }
@@ -41,6 +42,7 @@ internal class RecordsAdapter(private var recordsList : List<RecordsItem>,
         // TODO: finish binding to XML view
         //get the data from the list and fill in the various CELL from fields
         val recordItem = recordsList[position]
+
         holder.recordID.text = recordItem.recordID.toString()
         holder.item.text = recordItem.name
         holder.description.text = recordItem.description

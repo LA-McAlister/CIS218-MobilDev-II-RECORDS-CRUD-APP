@@ -14,10 +14,11 @@ open class BaseActivity() : AppCompatActivity() {
 
     fun writeRecordsToFile(){
         //Open File
-        val fileOutputStream: FileOutputStream = openFileOutput(RECORDS_FILE, MODE_PRIVATE)
+        val fileOutputStream : FileOutputStream = openFileOutput(RECORDS_FILE, MODE_PRIVATE)
         val recordFile = OutputStreamWriter(fileOutputStream)
+
         //Write each record
-        for(record in recordsList) {
+        for (record in recordsList) {
             recordFile.write( record.toCSV() + "\n")
         }
         // Close the File
@@ -26,23 +27,24 @@ open class BaseActivity() : AppCompatActivity() {
 
     fun readRecordsFile(){
         recordsList.clear()
+
         //Open the file
         val file = File(filesDir, RECORDS_FILE)
-        if(file.exists()) {
+        if (file.exists()) {
             //Read each line
             File(filesDir, RECORDS_FILE).forEachLine {
                 val parts = it.split(",")
                 //convert to an RecordsItem
-                val record = RecordsItem(parts[0].toInt(), parts[1], parts[2], parts[3].toDouble(), parts[4].toInt(), parts[5], parts[6] )
+                val record = RecordsItem(parts[0].toInt(), parts[1], parts[2], parts[3].toDouble(), parts[4].toInt(), parts[5], parts[6])
                 //Add the event to the recordList
                 recordsList.add(record)
             }
         }
     }
 
-    fun deleteRecordsFile(){
+    fun deleteRecordsFile() {
         val file = File(filesDir, RECORDS_FILE)
-        if(file.exists()){
+        if(file.exists()) {
             file.delete()
         }
     }

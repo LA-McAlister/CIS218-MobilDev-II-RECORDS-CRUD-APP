@@ -29,19 +29,15 @@ class ShowRecord : BaseActivity() {
         txtDateCreated.text = record.dateCreated
     }
 
-    fun editRecordOnClick( v : View){
-        val intent = Intent(this, EditRecord::class.java)
-        startActivity(intent)
-    }
-
     fun deleteRecordOnClick ( v: View){
         val builder = android.app.AlertDialog.Builder(this)
         builder.setMessage("Are you sure you want to delete this record?").setCancelable(false)
             .setPositiveButton("Yes") { dialog, which ->
-                toastIt("You want to delete the record")
+
                 //delete the element from the list
                 recordsList.removeAt(currentRecord)
                 writeRecordsToFile()
+                toastIt("Record is deleted")
                 //Go to another screen - Show all activity
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
@@ -51,6 +47,11 @@ class ShowRecord : BaseActivity() {
                 dialog.cancel()
             }
             .create().show()
+    }
+
+    fun editRecordOnClick( v : View){
+        val intent = Intent(this, EditRecord::class.java)
+        startActivity(intent)
     }
 
     fun showAllRecordsOnClick(v : View) {

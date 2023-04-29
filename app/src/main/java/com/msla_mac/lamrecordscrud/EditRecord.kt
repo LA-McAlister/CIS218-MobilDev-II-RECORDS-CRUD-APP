@@ -41,27 +41,29 @@ class EditRecord : BaseActivity() {
 
     fun editRecordsOnClick(v : View) {
         val record = recordsList[currentRecord]
+        val rating: Int = edtEditRating.text.toString().toInt()
 
-        if (edtEditName.text == null || edtEditDescription.text == null || edtEditPrice.text == null || edtEditRating.text == null || (edtEditRating.text.toString().toInt() <= 0 || edtEditRating.text.toString().toInt() > 5)) {
-            edtEditName.error = "Valid Name Not Entered"
-            edtEditDescription.error = "Valid Description Not Entered"
-            edtEditPrice.error = "Valid Price Not Entered"
-            edtEditRating.error = "Please Rate Between 1 & 5"
-        }
-        else {
-            record.name = edtEditName.text.toString()
-            record.description = edtEditDescription.text.toString()
-            record.price = edtEditPrice.text.toString().toDouble()
-            record.rating = edtEditRating.text.toString().toInt()
-            recordsList[currentRecord] = record
+        if (edtEditName.text == null || edtEditDescription.text == null || edtEditPrice.text == null || edtEditRating.text == null || (rating <= 0 || rating > 5)) {
+        edtEditName.error = "Please enter valid name"
+        edtEditDescription.error = "Please enter valid description"
+        edtEditRating.error = "Please enter a rating between 1 and 5"
+        edtEditPrice.error = "Please enter valid price"
+    }
+    else {
+        record.name = edtEditName.text.toString()
+        record.description = edtEditDescription.text.toString()
+        record.price = edtEditPrice.text.toString().toDouble()
+        record.rating = edtEditRating.text.toString().toInt()
+        recordsList[currentRecord] = record
 
-            //writing back to file
-            writeRecordsToFile()
-            toastIt("Item Updated")
-            val intent = Intent(this, ShowRecord::class.java)
-            startActivity(intent)
+        //writing back to file
+        writeRecordsToFile()
+        toastIt("Item Updated")
+        val intent = Intent(this, ShowRecord::class.java)
+        startActivity(intent)
         }
     }
+
 
     fun showAllRecordsOnClick(v : View) {
         val intent = Intent(this, MainActivity::class.java)

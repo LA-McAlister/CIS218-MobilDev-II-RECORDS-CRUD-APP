@@ -18,16 +18,17 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         recyclerView = findViewById(R.id.recordsRecycler)
+
         recordsListAdapter = RecordsAdapter(recordsList) { position ->
             toastIt("You selected position: $position")
 
             //perform whatever you want onclick
             val intent = Intent(this, ShowRecord::class.java)
             currentRecord = position
-
             startActivity(intent)
 
         }
+
         toastIt("Created list")
 
         recyclerView.layoutManager = LinearLayoutManager(applicationContext)
@@ -37,11 +38,16 @@ class MainActivity : BaseActivity() {
         readRecordsFile()
         recordsListAdapter.notifyDataSetChanged()
     }
+
+    fun editRecordOnClick(v : View) {
+        val intent = Intent(this, EditRecord::class.java)
+        startActivity(intent)
+    } // End of editEvent onClick
+
     fun addRecordOnClick( v : View ) {
         val intent = Intent(this, AddRecord::class.java)
         startActivity(intent)
     }
-
 
     fun addMockDataOnClick( v : View) {
         for (i in 1..41) {
@@ -52,6 +58,18 @@ class MainActivity : BaseActivity() {
         }
         writeRecordsToFile()
         recordsListAdapter.notifyDataSetChanged()
+    }
+
+    fun scrollToTopOnClick(v : View) {
+        recyclerView.smoothScrollToPosition(0)
+    }
+
+    fun scrollToBottomOnClick(v : View) {
+        recyclerView.smoothScrollToPosition(recordsList.size)
+    }
+
+    fun clearAllDataOnClick(view : View) {
+        deleteRecordsFile()
     }
 
 }

@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class AddRecord : BaseActivity() {
 
@@ -15,6 +17,8 @@ class AddRecord : BaseActivity() {
     lateinit var edtEditRating: EditText
     lateinit var edtEditDateModified: EditText
     lateinit var edtEditDateCreated: EditText
+
+    private val dateFormatter = DateTimeFormatter.ofPattern("mm-dd-yyyy")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,25 +34,25 @@ class AddRecord : BaseActivity() {
     }
 
     fun addNewRecordOnClick( v : View) {
-        val record = recordsList[currentRecord]
-        val newRecordID = recordsList.size + 1
+            val newRecordID = recordsList.size + 1
+            val rating: Int = edtEditRating.text.toString().toInt()
 
-        if (edtEditName.text == null || edtEditDescription.text == null || edtEditPrice.text == null || edtEditRating.text == null || (edtEditRating.text.toString()
-                .toInt() <= 0 || edtEditRating.text.toString().toInt() > 5)) {
-            edtEditName.error = "Valid Name Not Entered"
-            edtEditDescription.error = "Valid Description Not Entered"
-            edtEditPrice.error = "Valid Price Not Entered"
-            edtEditRating.error = "Please Rate Between 1 & 5"
+        if (edtEditName.text == null || edtEditDescription.text == null || edtEditPrice.text == null || edtEditRating.text == null || (rating <= 0 || rating > 5)) {
+            edtEditName.error = "Please enter valid name"
+            edtEditDescription.error = "Please enter valid description"
+            edtEditRating.error = "Please enter a rating between 1 and 5"
+            edtEditPrice.error = "Please enter valid price"
         }
         else {
             val addRecordItem = RecordsItem(
                 newRecordID,
-            edtEditName.text.toString(),
-            edtEditDescription.text.toString(),
-            edtEditPrice.text.toString().toDouble(),
-            edtEditRating.text.toString().toInt(),
-            edtEditDateModified.toString(),
-            edtEditDateCreated.toString())
+                edtEditName.text.toString(),
+                edtEditDescription.text.toString(),
+                edtEditPrice.text.toString().toDouble(),
+                edtEditRating.text.toString().toInt(),
+                edtEditDateModified.toString(),
+                edtEditDateCreated.toString()
+            )
 
             recordsList.add(addRecordItem)
             appendRecordToFile(addRecordItem)
